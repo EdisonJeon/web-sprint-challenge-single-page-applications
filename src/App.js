@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
 import Home from "./Components/Home";
 import PizzaForm from "./Components/PizzaForm";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 const App = () => {
   console.log("App Component has fired!");
@@ -14,10 +16,12 @@ const App = () => {
   }, []);
   return (
     <div className="App">
+      <Header navigate={navigate} />
       <Routes>
         <Route path="/" element={<Home navigate={navigate} />} />
-        <Route path="/pizza" element={<PizzaForm />} />
+        <Route path="/pizza" element={<PizzaForm navigate={navigate} />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
