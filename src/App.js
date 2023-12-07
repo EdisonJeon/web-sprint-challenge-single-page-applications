@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./Components/Home";
 import PizzaForm from "./Components/PizzaForm";
 import Header from "./Components/Header";
@@ -7,6 +7,10 @@ import Footer from "./Components/Footer";
 import axios from "axios";
 import * as yup from "yup";
 import formSchema from "./Validation/formSchema";
+import SuccessPage from "./Components/SuccessPage";
+
+// npm i -D cypress
+// npx cypress open
 
 const initialFormValues = {
   name: "",
@@ -32,6 +36,8 @@ const App = () => {
   const [disabled, setDisabled] = useState(false);
   const [data, setData] = useState(initialArr);
 
+  const navigate = useNavigate();
+
   const newOrder = () => {
     axios
       .post("https://reqres.in/api/orders", formValues)
@@ -40,6 +46,7 @@ const App = () => {
         // probably navigate to a success page?
         setData([res.data, ...data]);
         setFormValues(initialFormValues);
+        navigate("/success");
       })
       .catch((err) => {
         console.error("request err --> ", err);
@@ -63,8 +70,6 @@ const App = () => {
       [name]: value,
     });
   };
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     formSchema.isValid(formValues).then((isValid) => setDisabled(isValid));
@@ -92,6 +97,7 @@ const App = () => {
             />
           }
         />
+        <Route path="/success" element={<SuccessPage />} />
       </Routes>
       <Footer />
     </div>
