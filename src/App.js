@@ -12,6 +12,11 @@ import SuccessPage from "./Components/SuccessPage";
 // npm i -D cypress
 // npx cypress open
 
+/* 
+  POSTMAN TESTING:
+  post => body => raw => JSON
+*/
+
 const initialFormValues = {
   name: "",
   size: "",
